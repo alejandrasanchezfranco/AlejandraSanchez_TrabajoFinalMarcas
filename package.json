@@ -1,0 +1,27 @@
+{
+  "name": "alejandrasanchez_trabajofinalmarcas",
+  "version": "1.0.0",
+  "description": "Trabajo Final para la Asignatura de Marcas - Creación de una API con NODE **probando**",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alejandrasanchezfranco/AlejandraSanchez_TrabajoFinalMarcas.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/alejandrasanchezfranco/AlejandraSanchez_TrabajoFinalMarcas/issues"
+  },
+  "homepage": "https://github.com/alejandrasanchezfranco/AlejandraSanchez_TrabajoFinalMarcas#readme",
+  "dependencies": {
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
