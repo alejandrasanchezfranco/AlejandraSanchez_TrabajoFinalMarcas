@@ -122,5 +122,27 @@ app.delete('/fotos/:id',(req,res)=>{
     res.json({mensaje:"Foto eliminada"});
 });
 
+//======== Endpoints recursos secundarios =========
+
+//Obtener todos los registros secundarios
+
+app.get('/comentarios',(req,res)=>{
+    res.json(comentarios);
+});
+
+//Obtener registros secundarios que pertenecen a un principal concreto
+
+app.get('/fotos/:id/comentarios',(req,res)=>{
+    const fotoId = req.params.id;
+    const comentariosFoto = comentarios.filter(c => c.foto_id == fotoId);
+    res.json(comentariosFoto);
+})
+
+//Crear un nuevo r.secundario
+
+
+
+
+
 
 
