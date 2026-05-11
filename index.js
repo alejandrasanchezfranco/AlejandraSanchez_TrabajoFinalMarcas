@@ -184,8 +184,82 @@ app.post('/comentarios',(req,res) =>{
     res.status(201).json(nuevoComentario);
 });
 
+// Eliminar un comentario ( DELETE)
 
+app.delete('/comentarios/:id',(req,res)=>{
+    const index = comentarios.findIndex(c =>c.id == req.params.id );
 
+    if(index === -1){
+        return res.status(404).json({error: "Comentario no encontrado"});
+
+    }
+
+    comentarios.splice(index,1);
+    res.json({mensaje:"Comentario eliminado correctamente"});
+});
+
+// ============ Búsquedas y Filtros =============
+
+// Filtrar las fotos por texto (GET)
+
+app.get('/fotos/filtro/texto',(req,res) =>{
+    const {q} = req.query;
+    if(!q){
+        return res.status(400).json({error: "Parámetro 'q' requerido"});
+
+    }
+    const resultados = fotos.filter (f =>
+        f.titulo.toLowerCase().includes(q.toLowerCase()) || 
+        f.autor.toLocaleLowerCase().includes(q.toLowerCase())
+
+    );
+    res.json(resultados);
+});
+
+// Filtrar por rating ( mínimo y máximo)(GET)
+
+app.get('/fotos/filtro/rating',(req,res)=>{
+    const {min,max} = req.query;
+    let resultados = fotos;
+
+    if(min){
+        resultados = resultados.filter(f=> f.rating >= parseFloat(min));
+
+    }
+    if(max){
+        resultados = resultados.filter(f => f.rating <= parseFloat(max));
+    }
+    if(resultados.length === 0){
+        return res.status(404).json({error: "No hay fotos en ese rango de rating"});
+    }
+    res.json(resultados);
+});
+
+// Filtrar por favoritas (booleano) (GET)
+
+app.get('/fotos/filtro/favoritas',(req,res)=>{
+    const resultados = fotos.filter(f => f.favorita === true);
+    res.json(resultados);
+});
+
+// Ordenar fotos (GET)
+
+app.get('/fotos/orden/:campo',(req,res)=>{
+    const {campo} = req.params;
+    const {direccion} = req.query; // 'asc' o 'desc'
+
+    const camposValidos = ['titulo','rating','fecha','autor'];
+    if(!camposValidos.includes(campo)){
+        return res.status(400).json({ error: `Campo válido: ${camposValidos.join(', ')}` });
+    }
+    const copia = [...fotos];
+    copia.sort((a,b)=>{
+        if (a[campo]< b[campo]) return direccion === 'desc'? 1: -1;
+        if (a[campo]< b[campo]) return direccion === 'desc'? -1: 1;
+        return 0;
+    });
+    res.json(copia);
+});
 
 
 
