@@ -261,7 +261,51 @@ app.get('/fotos/orden/:campo',(req,res)=>{
     res.json(copia);
 });
 
+// =========== Estadísticas y Utilidades ==============
 
+// Estadisticas de rating ( GET)
+
+app.get('/fotos/stats/rating',(req,res)=>{
+    if(fotos.length === 0){
+        return res.status(400).json({error: "No hay fotos"});
+    }
+    const ratings = fotos.map(f=>f.rating);
+    const media =(ratings.reduce((a,b)=>a+b,0)/ratings.length).toFixed(2);
+    const maximo = Math.max(...ratings);
+    const minimo = Math.min(...ratings);
+
+    res.json({media,maximo,minimo});
+});
+
+// Obtener el total de registros (GET)
+
+app.get('/stats/totales',(req,res)=>{
+    res.json({
+        totalFotos:fotos.length,
+        totalComentarios: comentarios.length
+    });
+});
+
+// Contar fotos por categoría (GET)
+
+app.get('/fotos/stats/categorias',(req,res)=>{
+    const conteo = {};
+    fotos.forEach(f=>{
+        conteo[f.categoria]=(conteo[f.categoria]|| 0)+ 1;
+    });
+    res.json(conteo);
+});
+
+// ============= Manejo de errores Global ===============
+
+app.get('/error',(req,res,next)=>{
+    next (new Error("Error de prueba"));
+});
+
+app.use((err,req,res,next)=>{
+    console.error(err);
+    res.status(500).json({error:"Error interno del servidor"});
+});
 
 
 
