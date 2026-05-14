@@ -48,7 +48,7 @@ El objetivo del trabajo es aplicar los conceptios aprendidos en clase sobre:
 - 400 Datos incorrectos
 - 404 Recurso no encontrado
 - 500 Error interno del servidor
-**Pruebas con Burno**
+**Pruebas con Bruno**
 Todos los Endpoints han sido probados con Bruno.
 En el repositorio se incluye la colección exportada de Bruno con una petición preparada para cada endpoint, lista para ejecutar.
 
