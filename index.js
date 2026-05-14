@@ -51,9 +51,19 @@ app.listen(port, () => {
 
 //====== Endpoints básicos ========
 
+// Un Endpoint para obtener todos los datos de mis recursos nada mas entrar
+//(consejo de Javi)
+
+app.get('/',(req,res)=>{
+    res.status(200).json({
+        fotos:fotos,
+        comentarios : comentarios
+    });
+});
+
 //Obtener todas las fotos
 app.get('/fotos',(req,res)=>{
-    res.json(fotos);
+    res.status(200).json(fotos);
 });
 
 // Obtener una foto por id (route param)
